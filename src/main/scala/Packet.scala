@@ -3,7 +3,7 @@ package com.etagi.crm
 import java.io.{InputStream, DataInputStream}
 
 object Packet {
-  val headerLength = 33
+  val headerLength = 20
 
   def getStream(stream: InputStream) : Stream[Packet] = {
     val packet = readPacket(stream)
@@ -23,15 +23,15 @@ object Packet {
     try {
       val header = new PacketHeader(
         dataInputStream.readByte,
-        dataInputStream.readShort,
+        dataInputStream.readByte,
         dataInputStream.readInt,
         dataInputStream.readShort,
         dataInputStream.readInt,
         dataInputStream.readLong
       )
 
-      var body = new Array[Byte](1)
-      // dataInputStream.read(body)
+      var body = new Array[Byte](header.bodyLength)
+      dataInputStream.read(body)
 
       return new Some(new Packet(header, body))
     } catch {
