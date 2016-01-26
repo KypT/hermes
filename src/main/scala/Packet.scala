@@ -30,19 +30,23 @@ object Packet {
         dataInputStream.readLong
       )
 
+
+      if (header.bodyLength < 0 || header.bodyLength >= 2000)
+        println(header)
+
       var body = new Array[Byte](header.bodyLength)
       dataInputStream.read(body)
 
       return new Some(new Packet(header, body))
     } catch {
-      case e: Exception => println(e)
+      case e: java.io.EOFException =>
       return None
     }
   }
 }
 
 class Packet(header: PacketHeader, body: Array[Byte]) {
-  override def toString(): String = "Packet v" + header.version + " action: " + header.action;
+  override def toString(): String = "Packet v" + header.version + " length: " + header.bodyLength;
 }
 
 case class PacketHeader (

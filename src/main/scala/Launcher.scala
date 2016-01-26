@@ -2,6 +2,6 @@ import com.etagi.crm._
 
 object Launcher {
   def main(args: Array[String]): Unit = {
-    (new TcpEndpoint(2020, 1)).run
+    (new TcpEndpoint(2020, 8)).run
   }
 }
