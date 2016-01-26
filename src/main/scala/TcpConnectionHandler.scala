@@ -7,8 +7,8 @@ class TcpConnectionHandler(socket: Socket) extends Runnable {
   val inputStream = socket.getInputStream
 
   def run() {
-    val startTime = System.nanoTime
+    val startTime = System.currentTimeMillis
     Packet.getStream(inputStream) foreach PacketDispatcher.handle
-    println(s"done reading packets in ${ (System.nanoTime - startTime) / 10e9 } seconds ")
+    println(s"done reading packets in ${ (System.currentTimeMillis - startTime) / 1000.0 } seconds ")
   }
 }
