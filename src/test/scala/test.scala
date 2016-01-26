@@ -29,7 +29,7 @@ class TestTask(packetsNumber: Int, length: Int) extends Runnable {
       }
     }
     socket.close();
-    println(s"done writing packets in ${ (System.nanoTime - startTime) / 10e9 } seconds ")
+    println("done writing packets in " + (System.nanoTime - startTime) / 10e9 + " seconds ")
   }
 }
 
